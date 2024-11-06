@@ -9,7 +9,7 @@ function MainHeader({ onCreatePost }) {
         <MdMessage />
         Gold Coast Health News
       </h1>
-      <p>
+      <p> 
         <button className={classes.button} onClick={onCreatePost}>
           <MdPostAdd size={18} />
           New Post
