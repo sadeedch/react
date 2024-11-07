@@ -2,15 +2,40 @@ import NewPost from "./NewPost"
 import Post from "./Post"
 import Modal from "./Modal";
 import classes from "./PostsList.module.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function PostsList ({isPosting, onStopPosting }) {
     
 const [posts, setPosts] = useState([]);
+// Fetching the posts from the backend 
+useEffect(()=> {
+    async function fetchPosts () {
+        const response =  await fetch("http://localhost:8080/posts")
+        const resData = await response.json();
+        setPosts(resData.posts);
+    }
+    fetchPosts();
+}, []);
 
 function addPostHandler (postData) {
    //  setPosts([postData, ...posts]);   // can also be implemented like below
    setPosts((existingPosts) => [postData, ... existingPosts]);
+
+    
+    
+
+
+    /// connect with dummy backend API
+    fetch("http://localhost:8080/posts", {
+        method: "POST",
+        body: JSON.stringify(postData),
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    });
+
+
+
 }
 return (
     <>
